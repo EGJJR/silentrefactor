@@ -1,28 +1,41 @@
-<<<<<<< HEAD
-# silentrefactor
-AI Refactoring Tool
-=======
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Silent Refactor
+
+An AI-powered code refactoring platform that automatically analyzes and improves codebases.
+
+## Features
+
+- Automated code analysis and refactoring
+- GitHub integration for PR creation
+- Real-time monitoring dashboard
+- AI-powered code improvements using Claude
+- Automated PR reviews
+
+## Tech Stack
+
+- Frontend: Next.js, React, TypeScript, Tailwind CSS
+- Backend: Node.js, Prisma, PostgreSQL
+- AI: Anthropic Claude API
+- Version Control: GitHub API
+- Authentication: NextAuth.js
 
 ## Getting Started
 
-First, run the development server:
+1. Clone the repository
+2. Install dependencies: `npm install`
+3. Set up environment variables (see `.env.example`)
+4. Run development server: `npm run dev`
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Environment Variables
+
+Create a `.env` file with:
+
+```env
+DATABASE_URL="postgresql://..."
+GITHUB_TOKEN="your_github_token"
+CLAUDE_API_KEY="your_claude_api_key"
+NEXTAUTH_SECRET="your_nextauth_secret"
+NEXTAUTH_URL="http://localhost:3000"
 ```
-
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
 ## Learn More
 
@@ -38,4 +51,3 @@ You can check out [the Next.js GitHub repository](https://github.com/vercel/next
 The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
->>>>>>> 49afb65 (Initial commit from Create Next App)

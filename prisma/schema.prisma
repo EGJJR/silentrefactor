@@ -1,0 +1,69 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Repository {
+  id              String           @id @default(cuid())
+  name            String
+  owner           String
+  githubUrl       String          @unique
+  userId          String
+  lastScanAt      DateTime?
+  openPRs         Int             @default(0)
+  issuesFound     Int             @default(0)
+  status          String          @default("active")
+  refactoringJobs RefactoringJob[]
+  events          Event[]
+  createdAt       DateTime         @default(now())
+  updatedAt       DateTime         @updatedAt
+
+  @@unique([userId, githubUrl])
+}
+
+model RefactoringJob {
+  id            String      @id @default(cuid())
+  status        String      // PENDING, IN_PROGRESS, COMPLETED, FAILED
+  repositoryId  String
+  repository    Repository  @relation(fields: [repositoryId], references: [id])
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+  attempts      Int         @default(0)
+  maxAttempts   Int         @default(3)
+  error         String?
+  metadata      Json?       // Add this for storing analysis results
+}
+
+model Event {
+  id           String     @id @default(cuid())
+  type         String     // 'analysis' | 'pr_created' | 'error'
+  repositoryId String
+  details      Json
+  timestamp    DateTime   @default(now())
+  repository   Repository @relation(fields: [repositoryId], references: [id])
+}
+
+model User {
+  id                  String    @id @default(cuid())
+  email               String    @unique
+  stripeCustomerId    String?
+  stripeSubscriptionId String?
+  stripePriceId       String?
+}
+
+model PullRequest {
+  id        Int      @id @default(autoincrement())
+  status    String
+  createdAt DateTime @default(now())
+  // other fields...
+}
